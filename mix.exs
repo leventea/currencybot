@@ -14,14 +14,15 @@ defmodule CurrencyBot.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {CurrencyBot, {}}
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:poolboy, "~> 1.5.0"},
+      {:gen_stage, "~> 1.2.0"},
       {:nadia, "~> 0.7"},
       {:jason, "~> 1.4"},
       {:quantum, "~> 3.5"}
