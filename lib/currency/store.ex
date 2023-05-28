@@ -31,6 +31,11 @@ defmodule CurrencyBot.Currency.Store do
     {:noreply, Map.put(state, :base, curr)}
   end
 
+  @impl true
+  def handle_call({:get_table}, _from, state = %{table: table}) do
+    {:reply, table, state}
+  end
+
   # client impl
 
   def start_link(_args) do
@@ -39,5 +44,9 @@ defmodule CurrencyBot.Currency.Store do
 
   def cast(req) do
     GenServer.cast(__MODULE__, req)
+  end
+
+  def call(req) do
+    GenServer.call(__MODULE__, req)
   end
 end
