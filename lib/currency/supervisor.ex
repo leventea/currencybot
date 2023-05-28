@@ -9,7 +9,12 @@ defmodule CurrencyBot.Currency.Supervisor do
       Currency.Store
     ]
 
-    Supervisor.init(children, strategy: :one_for_one)
+    res = Supervisor.init(children, strategy: :one_for_one)
+
+    # fetch the exchange rates and store them in Currency.Store
+    Currency.Fetcher.start_link()
+
+    res
   end
 
   def start_link(_args) do
