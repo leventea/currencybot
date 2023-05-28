@@ -6,6 +6,7 @@ defmodule CurrencyBot.Supervisor do
     children = [
       CurrencyBot.Scheduler,
       CurrencyBot.Telegram.Supervisor,
+      CurrencyBot.Currency.Supervisor
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
