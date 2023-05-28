@@ -3,8 +3,8 @@ defmodule CurrencyBot.Currency.Exchange do
 
   import Enum, only: [map: 2, filter: 2]
 
-  @spec convert(float(), String.t(), list(String.t())) :: list({String.t(), float()})
-  def convert(amount, from, target_currencies) do
+  @spec convert(float(), String.t(), list(String.t()), integer()) :: list({String.t(), float()})
+  def convert(amount, from, target_currencies, round_to \\ 2) do
     # REVIEW: bottleneck?
     table = Currency.Store.call({:get_table})
 
@@ -17,8 +17,15 @@ defmodule CurrencyBot.Currency.Exchange do
         |> map(fn [w] -> w end) # unwrap from extra list
         |> map(fn {curr, val} ->
           single = val / source_rate # worth of 1 unit of target currency
-          {curr, amount * single}
+          rounded = round_to(amount * single, round_to)
+          {curr, rounded}
         end)
     end
+  end
+
+  @spec round_to(float(), integer()) :: float()
+  defp round_to(amount, decimals) do
+    coeff = Float.pow(10.0, decimals)
+    Float.round(amount * coeff) / coeff
   end
 end
