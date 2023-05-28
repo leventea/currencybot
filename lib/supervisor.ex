@@ -5,9 +5,7 @@ defmodule CurrencyBot.Supervisor do
   def init(_args \\ []) do
     children = [
       CurrencyBot.Scheduler,
-      { Task.Supervisor,
-        name: CurrencyBot.Telegram.MessagePoller.Supervisor,
-        max_children: 1 } # there should only be a single poller process
+      CurrencyBot.Telegram.Supervisor,
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
