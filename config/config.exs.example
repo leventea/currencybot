@@ -1,9 +1,19 @@
 import Config
 
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
 config :nadia,
   # obtained from @BotFather
   token: ""
 
 config :currency_bot,
   # maximum number of gen_stage consumers that can be spawned
-  max_demand: 20
+  max_demand: 20,
+  currency_endpoint: "https://api.exchangerate.host/latest?base=EUR"
+
+config :currency_bot, CurrencyBot.Scheduler,
+  timezone: "GMT",
+  jobs: [
+    # the exchange rates update around midnight GMT
+    {"0 1 * * *", fn -> CurrencyBot.Currency.Fetcher.start_link(false) end}
+  ]
