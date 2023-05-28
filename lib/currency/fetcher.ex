@@ -1,8 +1,10 @@
 defmodule CurrencyBot.Currency.Fetcher do
   alias CurrencyBot.Currency
 
-  def start_link(_args) do
-    Task.start_link(&update_store/0)
+  def start_link(init \\ true) do
+    Task.start_link(fn ->
+      update_store(init)
+    end)
   end
 
   def update_store(init \\ true) do
