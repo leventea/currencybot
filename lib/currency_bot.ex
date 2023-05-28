@@ -1,18 +1,14 @@
 defmodule CurrencyBot do
-  @moduledoc """
-  Documentation for `CurrencyBot`.
-  """
+  use Application
 
-  @doc """
-  Hello world.
+  def start(_type, _args) do
+    sup = CurrencyBot.Supervisor.start_link()
 
-  ## Examples
+    # start a poller task
+    Task.Supervisor.start_child(
+      CurrencyBot.Telegram.MessagePoller.Supervisor,
+      &CurrencyBot.Telegram.MessagePoller.start_polling/0)
 
-      iex> CurrencyBot.hello()
-      :world
-
-  """
-  def hello do
-    :world
+    sup
   end
 end
