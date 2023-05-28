@@ -1,0 +1,9 @@
+import Config
+
+config :nadia,
+  # obtained from @BotFather
+  token: ""
+
+config :currency_bot,
+  # maximum number of gen_stage consumers that can be spawned
+  max_demand: 20
