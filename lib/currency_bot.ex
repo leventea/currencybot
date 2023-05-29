@@ -7,7 +7,8 @@ defmodule CurrencyBot do
     # start a poller task
     Task.Supervisor.start_child(
       CurrencyBot.Telegram.MessagePoller.Supervisor,
-      &CurrencyBot.Telegram.MessagePoller.start_polling/0)
+      &CurrencyBot.Telegram.MessagePoller.start_polling/0
+    )
 
     sup
   end

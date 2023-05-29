@@ -14,8 +14,10 @@ defmodule CurrencyBot.Telegram.EventSink do
     ]
 
     max_demand = Application.get_env(:currency_bot, :max_demand, 20)
+
     ConsumerSupervisor.init(children,
       strategy: :one_for_one,
-      subscribe_to: [{ TG.EventSource, max_demand: max_demand }])
+      subscribe_to: [{TG.EventSource, max_demand: max_demand}]
+    )
   end
 end

@@ -7,14 +7,15 @@ defmodule CurrencyBot.Telegram.MessagePoller do
 
     :logger.debug("got #{length(updates)} updates")
 
-    newest_offset = if length(updates) > 0 do
-      # dispatch the new events to the event source
-      Telegram.EventSource.cast({:queue_events, updates})
+    newest_offset =
+      if length(updates) > 0 do
+        # dispatch the new events to the event source
+        Telegram.EventSource.cast({:queue_events, updates})
 
-      List.last(updates).update_id + 1
-    else
-      offset
-    end
+        List.last(updates).update_id + 1
+      else
+        offset
+      end
 
     start_polling(newest_offset)
   end

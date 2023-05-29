@@ -6,9 +6,11 @@ defmodule CurrencyBot.Telegram.Supervisor do
   @impl true
   def init(_args \\ []) do
     children = [
-      { Task.Supervisor,
-        name: Telegram.MessagePoller.Supervisor,
-        max_children: 1 }, # there should only be a single poller process
+      {
+        Task.Supervisor,
+        # there should only be a single poller process
+        name: Telegram.MessagePoller.Supervisor, max_children: 1
+      },
       Telegram.EventSource,
       Telegram.EventSink
     ]

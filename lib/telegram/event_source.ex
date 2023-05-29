@@ -15,7 +15,8 @@ defmodule CurrencyBot.Telegram.EventSource do
   # server impl
   @impl true
   def init(_args \\ nil) do
-    {:producer, %{demands: []}} # unfulfilled demands is a list of tuple {pid, number_of_demands}
+    # unfulfilled demands is a list of tuple {pid, number_of_demands}
+    {:producer, %{demands: []}}
   end
 
   @impl true
