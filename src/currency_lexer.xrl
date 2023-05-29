@@ -3,6 +3,7 @@ Definitions.
 % TODO: Add support for currency symbols
 
 GroupSeparator = [\.,\s]
+WordSeparator = {GroupSeparator}
 Whitespace = [\s\t\n,]
 LineBreak = [\n\r\f]
 ExtWhitespace = ({Whitespace}|{LineBreak})
@@ -11,7 +12,7 @@ CurrencyChar = [A-Za-z]
 CurrencyCode = ({CurrencyChar}{CurrencyChar}{CurrencyChar})
 
 Digit = [0-9]
-Value = {Digit}+({GroupSeparator}{Digit}+)?
+Value = {Digit}+({GroupSeparator}{Digit}+)*
 
 Rules.
 
@@ -22,9 +23,12 @@ Rules.
 {CurrencyCode} : {token, {code, TokenChars}}.
 
 % whitespace
-{ExtWhitespace}* : {token, {whitespace}}.
+{ExtWhitespace}* : skip_token.
+
+% word separators
+{WordSeparator} : {token, {word_sep}}.
 
 % catch-all for any free-flow text
-[^0-9\s]* : {token, {text, TokenChars}}.
+[^0-9\s\.,]* : {token, {word, TokenChars}}.
 
 Erlang code.
