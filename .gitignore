@@ -27,3 +27,6 @@ currency_bot-*.tar
 
 # Ignore config file to avoid uploading secrets
 config/config*.exs
+
+# Ignore generated files
+src/*.erl
