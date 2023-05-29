@@ -29,6 +29,6 @@ Rules.
 {WordSeparator} : {token, {word_sep}}.
 
 % catch-all for any free-flow text
-[^0-9\s\.,]* : {token, {word, TokenChars}}.
+[^0-9\s\.,\n\t]* : {token, {word, TokenChars}}.
 
 Erlang code.
